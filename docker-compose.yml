@@ -1,60 +1,12 @@
 version: '2'
 services:
-  youtrack:
-    build: youtrack/
+  plex:
+    image: plexinc/pms-docker
     volumes:
-      - /opt/youtrack/data/:/usr/local/youtrack/data/
-      - /opt/youtrack/backups/:/usr/local/youtrack/backups/ 
-      - /opt/youtrack/logs/:/usr/local/youtrack/logs/ 
-      - /opt/youtrack/temp/:/usr/local/youtrack/temp/ 
-    links:
-      - postgres
+      - plex_config:/config
+      - transcode:/transcode 
+      - /storage/Movies:/media/movies/ 
+      - /storage/anime/:/media/anime/
+      - /storage/TvShows/:/media/tvshows/
     ports:
-      - 8110:8080
-  teamcity:
-    build: teamcity/
-    volumes:
-      - /data/teamcity_server/datadir
-      - /opt/teamcity/logs
-    ports:
-      - 8111:8111
-    links:
-      - postgres
-  teamcity_agent:
-    image: jetbrains/teamcity-agent
-    privileged: true
-    environment:
-      - SERVER_URL=teamcity:8111
-      - AGENT_NAME="builder"
-      - DOCKER_IN_DOCKER=start
-    links:
-      - youtrack
-    volumes:
-      - /opt/docker/volumes:/var/lib/docker
-  hub:
-    build: hub/
-    ports:
-      - 8112:8080
-    links:
-      - teamcity
-      - youtrack
-    volumes:
-      - /opt/hub/hub-ring-bundle-2017.3.6757/data/
-      - /opt/hub/hub-ring-bundle-2017.3.6757/backups/
-      - /opt/hub/hub-ring-bundle-2017.3.6757/logs/
-      - /opt/hub/hub-ring-bundle-2017.3.6757/temp/
-  upsource:
-    image: jetbrains/upsource:2017.2.2197
-    ports:
-      - 8113:8080
-    volumes:
-      - /opt/upsource/data
-      - /opt/upsource/logs
-      - /opt/upsource/backups
-      - /opt/upsource/temp/ 
-    links:
-      - hub
-  postgres:
-    image: postgres:10-alpine
-    volumes:
-      - /var/lib/postgresql/data
+      - 32400:32400
