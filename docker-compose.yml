@@ -20,6 +20,7 @@ services:
       - 32414:32414/udp
     environment:
       - PLEX_CLAIM="claim-M7b65bZNTqcnoSipuUUh"
+      - ADVERTISE_IP="http://ultimaengineering.com:32400"
 volumes:
   plex_config:
   transcode:
