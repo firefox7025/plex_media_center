@@ -19,7 +19,7 @@ services:
       - 32413:32413/udp
       - 32414:32414/udp
     environment:
-      - PLEX_CLAIM="claim-AAybi11qCYEXJjwoCcqk"
+      - PLEX_CLAIM="claim-M7b65bZNTqcnoSipuUUh"
 volumes:
   plex_config:
   transcode:
